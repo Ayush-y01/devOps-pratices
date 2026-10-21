@@ -1,0 +1,68 @@
+ISP :-( internet service provider ) router and other device install karke dete hai in device se humko ek IP Address mil jata hai is tarike se hum device identify karte hai 
+
+
+
+
+
+-------------------------------------------About Server---------------------------------------------
+
+
+
+
+
+types of servers : email server, file server , DB server, app server , web server
+
+what server do : clients ko serve karta hai
+
+types of clients : mobile , laptop, 
+
+ex : youtube.com this is called domain | is domain ke against ek application server hota hai us server ki ek IP Address hoti hai (2.2.4.5) 
+
+Domain and IP Addres Link kese hota hai : uske liye bhi ek server hota hai
+we called it DNS (Domain Name Server) 
+
+
+
+
+
+
+----------------------------------------- Difference Between Web server and Application server----------------------------------------------------------------
+
+
+
+
+
+
+Web Server : Generally Serve Static Data Example: (Nginx is  web server Nginx ke through me static pages serve kar sakte hai 
+
+Application Server : Dynamic Data serve karta hai Example: ( Django And nodes ki appliactio serve ho rahe that called application server)
+
+Types of application : Standalone (isko internet ki zarurat nahi hoti hai ) , Web application (instagram , youtube  like this type of application notification, datastore , etc , etc ye group of application chala raha hai isko bolta hai web application hai ye internel pe chalti hai and isko suppotive me email server , file server , DB server, nor bhi bohot sare chize hoti hai web application ko support karta hai 
+
+
+Devops Eng Should know which types of application the are working: 
+	- if the are working on standalone then no need of database , email server, etc
+
+	- agar web app ke sath kam kar raha hai toh frontend ke sath connection , backend ke sath connetion, database ke sath connection , cloud ke sath connection , or bhi chize ke sath connection 
+
+
+
+
+
+----------------------------------------------What is application support and maintaince ----------------------------------------------------------------------
+
+
+
+
+
+humare phone , laptop : application hote ye sab ek OS pe chal raha hai , in sare OS pe application chal  rahe hote ye sare application sahi se chal raha hai ya nahi ye hota application support ky unko kise chize ke zarurat hai ye nahi etc
+
+
+application maintaince : jo application ko kuch support , maintian , affection, care kuch bhi chiye ko ispe kiya jata hai
+
+
+
+
+
+
+
