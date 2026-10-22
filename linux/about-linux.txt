@@ -1,0 +1,83 @@
+Linux is Operating System
+
+How to run linux in any OS:
+- WSL (Windows Subsystem For linux) windows ke ander linux bhi hota hia bass wsl usko enable kar deta hai
+- virtaul Box VMware ka aata hai usko virtaul me chal jata hai
+- AWS / Azure / GCP : virtaul machine bana sakte ho usme linux chala sakte ho 
+- vagraint
+
+----------------------Diffrence between linux and windows---------------------------------------
+
+-- Windows comes on commerical liences
+ - windows is general purpose 
+ -  
+-- Linux is GPL ( General public liences )
+ - linux more foucs on Devlopment , networking , terminal , programing scripting
+ - ubuntu only update 2 times in a year
+
+
+-------------------------------------------Software remote location server tool ----------------------------------------------------
+
+How to Connect remote location Server or VM 
+- RDP ( Remote Desktop protocol)
+- SSH ( secure Shell )
+- Anydesk
+
+----------------------------------------------------------------what is kernel , bootloader, shell-----------------------------------------
+
+Linux is OS Every OS has Heart 
+- for Linux Kernel is heart 
+- pure OS ko chalane ke liye knows as Linux Kernel
+- kernel is written in c language
+- so we need something so the talk with c so kernel can understand
+
+that is shell:
+- With the help of shell user can Contact with kernel give commands , run task
+Example: user want to create a folder so user to tell the kernel and kernel onyl undertstnd c 
+so in shell there are commands to do task
+
+- That commands knows as shell commands
+- to create folder we give mkdir folder_name
+
+
+bootloader :-
+- bootloader kernel me rakha hau ek process hai system start hote hi sab ko UP kar dete hai
+- GRUB :- is the program on linux system that loads and manages the boot process 
+- GRUB is knows as :- (GRand Unified bootloader) 
+
+Desktop ENvironment:
+ - linux chalate hai usme hume jo desktop milta hai usse hum desktop Environment bolte icons, files, start button terminal can open
+
+Linux system Archtiture: hardware -> kernel -> shell -> application 
+
+
+
+Information About Hardware :-
+- commands :-
+	- top -> jitne bhi process hai sare dikh jayenge
+	- df -h -> jitne bhi disk size hai sab dikh jayenge
+	- free -h -> to display a quick snapshot of system memory usage, including physical RAM and swap space
+
+
+
+
+linux file System :-
+every thing in linux start from ( / ) that is called root folder
+	- inside this home, usr, bin , etc , var
+	
+
+
+Diffrence between linux and Unix:-
+
+Unix is parent of linux / unix is commrecial pay to use 
+
+and linux is made from unix / linux is open source free to use
+
+
+States of processes in linux:-
+- commands :- 
+	- top -> To know what is happeing in CPU use command top
+	- process is running in background which help to run other system
+	- every process hai PID (process ID)
+	- how many types of states : running, stop,  sleeping, killed or terminated, zombie process this all are state 
+
