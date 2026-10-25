@@ -1,0 +1,19 @@
+- ls -> list every thing
+- ls -a -> detail list every thing
+- cd -> to locate to given location ( current to kahi or jana hai cd likh or jaha ka naam likh dena )
+- pwd -> tell present location where are you
+- mkdir -> to create new folder or director
+- date -> to know current date
+- touch -> to create new file
+- ls -l -> know details of every thing
+- clear -> to clear the terminal
+- rm -> to remove files
+- rm -r -> to remove folder and inside files
+- rmdir -> to remove folder
+- cat filename -> to view inside file 
+- echo "" -> to print things
+- echo "xyz" > filename.txt -> ye chize file ke ander chali jayegi file ke ander dal deta hai agr file exist nahi hai to new bana dega
+- zcat -> zip file ke ander ko content ko show karne ke liye use karte hai
+- head filename -> top 5 ya 10 line print karvana hai to use karte hai
+- tail filename -> niche vali 5 ya 10 line print hoti hai
+- 
