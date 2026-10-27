@@ -39,6 +39,7 @@ so in shell there are commands to do task
 - That commands knows as shell commands
 - to create folder we give mkdir folder_name
 
+------------------------------------------ c-----------------------
 
 bootloader :-
 - bootloader kernel me rakha hau ek process hai system start hote hi sab ko UP kar dete hai
