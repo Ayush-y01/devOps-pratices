@@ -1,0 +1,25 @@
+cp source destination -> copy file from source to destination you can copy file from any source to any destiantion without inside file
+cp -r source destiantion -> copy folder from source to destiantion (-r ) recursilly
+mv source destination -> you can move file or folder from source to destination
+mv filename new name -> to move file or folder to source to destination and rename the file or folder
+wc filename -> isse hume kitne lines hai kitne words kitne letters hai ye bata chalta hai file ke ander and file ke size batata hai
+
+-----------------------interview more foucs this question---------------------------
+---> this a way to create a shortcut of files 
+ln hardlink-file path with file -> this is command to create hardlink --> in hardlink if anything happen in original does not affect to hardlinn 
+
+ln -s path with file softlink-file -> this is way to create softlink and in software if something happen in original file the it affect to softlink also 
+
+cut -b 1-4 filename -> this give small prosation from file chota sa part cut karke dedeta hai
+
+echo "hello" | tee filename -> ye command run bhi karta hai or file ke ander bhi dal deta if nahi hui to create kar deta hai tee is commant to run and display that output 
+
+sort -> file sort karne ke liye simple
+
+clear -> to clear terminal simple
+
+diff from file to file -> to check diffrence between two file
+
+wc filenames -> this works same as diff but on multiple files
+
+
