@@ -1,0 +1,26 @@
+				adv-part2-linux
+
+
+
+ssh -> ssh = ( secure shell ) ssh ka generally port 22 pe access hota hai its like connection between cloud or system through ssh || ssh key through karte hai
+
+df -h -> to know about disk usage
+
+du . -> to know about all the folder
+
+top -> tell total process
+
+ps -> current bash konse pid pe chal raha hai
+
+fuser -> 
+
+kill -9 -> use to kill the process  
+
+free -h ->tell your disk space 
+
+nohup free -h -> file me out store karne ke liye devops me logs store karne ke liye kam aata hai       
+
+vmsat -> tell about virtaul memory 
+
+
+
