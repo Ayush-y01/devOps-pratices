@@ -1,0 +1,18 @@
+				compression
+
+
+zip zipname.zip konse file -> this is use to compress file to make a zip use this command
+
+zip -r zipname.zip path -> this is use to zip a folder
+
+unzip zipfilename.zip -> this command use to unzip a zip file
+
+tar -cvzf filename path -> this will create tar file
+
+scp -i "secrect file path"  "sourc path jisko copy karna hai " "to path jaha copy karna hai" -> copy from one device to another device
+scp -i "secrect file path" -r "soruce folder path" "folder path" -> this is used to copy folder from one device to another device 
+
+rsync -e "ssh -i path secrect key file" -avz "local_folder_path" "jisko sync karna uska path" -> rsync matlab one deivce and other device ke file or folder ko sync kar dega jese ek device me changes hue to other me hojayenge normal scp me file or folder sirf local device me copy ho jata hai rsync karne se dono sync bhi rehte hai
+
+
+
