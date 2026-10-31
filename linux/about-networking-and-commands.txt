@@ -1,0 +1,73 @@
+			about-networking-and-commands
+
+
+
+ping websitename -> to ping website and check the website is running or not ping ky karte data bhejta hu bhi hai and reciced bhi karta hai
+
+packets means data bhara rehta inme hume packets transfer karte
+
+netstat -> *imp jitne bhi active internet connection hai dikha deta hai ,display active network connections, listening ports, routing tables, and interface statistics
+
+tcp -> transmision control protocol
+
+ifconfig -> interface config = jitne bhi network interface honge vo show ho jayenge
+
+nic -> network interface card = ye network ko jodne ke liye kam aata hai
+
+lo -> loop back
+
+traceroute youtube.com -> to know about internet route internet jaha jaha hop karte karte jata vo bata hai agr apko pass soruce hai or destination hai or apko pata karna ho ki apke internet kese kese kaha kaha gaya hai then use trace route this tell all the ip jjaha jaha internet hop hop ho kar gaya hai
+
+tracepath youtube.com -> localhost this tell same as traceroute but tell path of route in this no reply means packet lose 30 max agr 30 no reply hoga toh max hops aajayega
+
+mtr -> ping tracepath and dono command sath me chalata hai simple
+
+nslookup youtube.com -> this tell about domain is working or not about the domain
+
+telnet youtube.som port -> same as nslookup bass port number bhi dal sakte ho
+
+443 vs 80 -> http => 80 https => 443
+
+hostname ->  this tell host name of device
+
+hostname name > to change host name 
+
+ip address show -> this show full ip addresses
+
+iwconfig -> jitne bhi wirelist connetion bata dega 
+
+ss -> netstat ka same version hota hai
+
+dig youtube.com -> this tell about the website in details
+
+whois youtube.com -> this more and more details about website kaha se kab liye kise liye ky liye 
+
+nc(netcat) ->
+
+
+arp -> Address resolution protocol => host router se mac address mangta hai vo router host ko mac address deta hai vo type ka too hai uske bare me bata hai ye 
+
+ifplugstatus -> ye bata hai interface chal rahe hai ya nahi simple 
+
+
+
+---------------------------------------------important this commads geneally use ---------------------------------------------
+
+
+curl -x get api-end-point | jq -> api end point ko call karne ke liye hota hai 
+
+wget link -> to download from internet this wget is used
+
+sudo iptables --list-rules -> iptables is a legacy command-line utility used to configure and manage firewall rules in the Linux kernel
+
+watch mtr youtube.com -> watch ky karta hai har 2 sec me watch jo command doge vo chalta rahega 
+
+watch -n 5 top -> isse me second changes bhi kar sakte hai
+
+nmap -v youtube.com -> network map rehta hai pura network map rehta ye network kaha se kaha jaa raha kind of route table
+
+nmap tab kam aata hai kisse website ko scan karne ko log isko use karke attack karte hai galti se koi port khula reh gaya toh attack kar dete hai
+
+route -> apne route edit karne apne route change karne ho route table
+
+
