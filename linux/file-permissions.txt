@@ -1,0 +1,43 @@
+				file-permissions
+
+
+ls -l -> to check files or dir permission and information 
+
+---- permission explain ----
+
+DRWXRWXRWX
+
+first D meand its directory else _
+
+first RWX this is for user R -> read , W -> write , X -> Execute is pata chalta user ke pass kitne permission hai
+
+secound RWX this is for group R -> read , W -> write , X -> Execute isse pata chalta hai groupe ke pass kiten permission hai
+
+third RWX this is for other R -> read , W -> write , X -> Execute isse pata chalta hai other ke pass
+ kiten permission hai
+
+----> agar inmse kiske pass koi permission nahi hogi toh vo blank hoga hai <-----
+
+---->>>> permission in numbers <<<<------
+
+---  => 0
+--x  => 1
+-w-  => 2
+-wx  => 3
+r--  => 4
+r-w  => 5
+rw-  => 6
+rwx  => 7
+
+chmod 777 dirname/filename -> is use to give file or folder permisson  
+
+umask -> jab bhi koi file create karte hai to by default uski permission ky honi chaiye 
+
+cat .barhrc -> in this file you can change the umask 
+
+sudo chown -> change ownership isse hoti hai
+
+sudo chgrp -> group ownership change karne ke liye hai ki group konsi file ke owner hoga
+
+
+
