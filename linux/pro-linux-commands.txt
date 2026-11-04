@@ -1,0 +1,76 @@
+				pro-linux-commands
+
+
+To Mastere this Commands
+
+---AWK
+---SED
+---GREP
+
+____________________________________
+
+what is AWK ?
+
+-> agr shell script nahi likhne ho toh awk is used without write a shell script awk se hum vahi kam kar sakte hai
+
+head -n 2 filename -> jiske hum koi bhi file lines fetch kar sakte hai simple
+
+awk '{print}' filename -> this whole file awk '' filename ye syntax hai awk ka single quotes me apne code likhna hai 
+
+awk '{print $1, $2}' filename -> this will print only first and second columes or bhi add lar sakte hai , laga jiten columens chaiye ho
+
+awk '/INFO/ {print $1, $2}' filename -> isme me filter laga raha hu jisne info hoga vahi print hogi
+
+awk '/INFO/ {print $1, $2}' filename > filename -> idher jo print karne pe mil raha dusri file me send kart raha hu
+
+awk '/INFO/ {count++} END {print count }' filename -> info kitne bar aaya hai batayega hum count karte hai 
+
+awk '/INFO/ {count++} END {print "The Count of info is " count }' filename -> just text add kar diya count ke pehel
+
+
+________________________________________________________________________________
+
+
+abhi devops vale jese kam karenge jese 8:53 pe koi incident hue mujhe 8:53 ka hi logs chaiye
+
+
+awk '$2 >= "08:53:00" && $2 <= "08:53:09" {print $2, $3}' filename -> iske basically 8:53 se le kar 8:53:08 tak sare aajaye
+
+awk ki sirf ek requiredment hai awk me sirf formated data chalta hai csv tsv awk and sed me yehi diffrenace hai 
+
+
+--------------------------------SED --------------------( stream editor )---
+
+
+sed -n '/INFO/p' filename -> -n exact match karne ke liye ese same data chaiye /INFO/ ke p laga do print hoga
+
+
+
+diffreance between => awk and sed 
+
+awk -> structure data pe kam karte hai
+
+sed line by line kam karte hai 
+
+
+sed 's/INFO/LOG/g' filename -> this will change globally INFO into LOG
+
+sed -n -e '/INFO/=' filename -> for expresion use karne ke liye -e string ko ek daire me rakhne ke liye -n and = to show karta hai line number 
+
+sed -n -e '/INFO/=' -e '/INFO/p' filename -> line with data print bhi hoga
+
+
+sed '1,10 s/INFO/LOG/g' filename ->  line number 1 se 10 take sare info log me change hojaye range aone hisab se de sakte hai
+
+
+-------------------- GREP (global regular expression pattern --------------------
+
+grep INFO filename -> to find info logs
+
+grep -i -c info filename -> -i case insesitve hojata hai INFO and info same treat hogi and -c for count
+
+ps aux | grep ubuntu -> 
+
+ps aux | grep ubuntu | awk '{print $2}'
+
+
