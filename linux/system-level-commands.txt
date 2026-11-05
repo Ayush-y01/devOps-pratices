@@ -1,0 +1,35 @@
+			 system-level-commands
+
+
+
+uname -> this tell humare system kispe chal rhaa hai mac:darwin pe chalta hai 
+
+uptime -> this tell system kabse chal raha hai loadavg batata hai kitne user hai kabse chalu
+
+Date -> current date
+
+who -> konsa user ne kab login current kitne user login hai
+
+whoami -> to know about current user username
+
+which -> *imp* location and uske bare me bata deta hai Ex: you are working on java system and vo break ho raha hai uska koi toh old version break ho raha hai toh apko which command se pata chal jayega ki kaha hai or konsa ky hai
+
+id -> jis user ki se login ho uske bare me uski id , groupe id , etc
+
+sudo -> imp* sudo ( SuperUser DO )  is group not a user sudo sare admin vale hote hai us group ke pass sare permission hote hai sudo user ko superuser permission de deta hai just simple admin vale kam kar sakte hai user 
+
+shutdown -> for system shutdown user cannot shutdown system this need admin permission means "sudo" sudo shutdown
+
+reboot -> for restarting system this all cannot done by normal user only admin user can do this means "sudo" sudo reboot
+
+apt -> APT is application package manager to install, update manage application in linux this find application in own application
+
+apt-get -> find and download application from the internet this is minor diffrence between apt and apt-get
+
+apt -> linux
+yum -> centOS
+dnf -> fusion
+pacman -> arch
+rpm -> redhat
+portage -> gento
+
