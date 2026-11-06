@@ -1,0 +1,28 @@
+				user-group-management
+
+
+pwd -> to know the location
+
+sudo useradd -m username -> to add user in ubunto environment
+
+sudo passwd username -> to add pasword to user
+
+su username -> to switch user 
+
+cat etc/passwd -> this show all the user and other details
+
+id -> this show many things user and groups
+
+sudo userdel username -> to delete user 
+
+sudo groupadd groupName -> to create group
+
+----- In linux where ever a user create usko bhi group banata hai remeber this -----
+
+sudo gpasswd userName groupName -> to add user in groups 
+
+sudo gpasswd -M userName, userName groupName -> -M use to add mulitple user at once in groupe 
+
+sudo groupdel groupName -> to delete groupe 
+
+
