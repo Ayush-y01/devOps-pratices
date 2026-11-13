@@ -1,0 +1,11 @@
+services:
+  nextjs:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    container_name: devops-container-v3-limit
+
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
