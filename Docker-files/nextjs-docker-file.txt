@@ -1,0 +1,377 @@
+# Docker Multi-Stage Build — Next.js
+
+## 1. Multi-Stage Build kya hota hai?
+
+Multi-stage build mein hum ek Dockerfile ke andar multiple `FROM` instructions use karte hain.
+
+Har `FROM` ek naya build stage create karta hai.
+
+**Main purpose:**
+- Docker image ka size reduce karna.
+- Build-time dependencies ko production image se alag rakhna.
+- Sirf required production files final image mein rakhna.
+- Security improve karna.
+
+Hum Next.js application ke liye 3 stages use karenge:
+
+1. `deps` — Dependencies install karna.
+2. `builder` — Application build karna.
+3. `runner` — Production application run karna.
+
+---
+
+## Stage 1: Dependencies
+
+```dockerfile
+FROM node:22-alpine AS deps
+
+WORKDIR /app
+
+COPY package.json package-lock.json ./
+
+RUN npm ci
+```
+
+### Explanation
+
+**1. Base image select karna**
+
+```dockerfile
+FROM node:22-alpine AS deps
+```
+
+- `node:22-alpine` Node.js ki base image hai.
+- `AS deps` current stage ko naam deta hai.
+- Baad mein doosre stages is stage se files copy kar sakte hain.
+
+**2. Working directory define karna**
+
+```dockerfile
+WORKDIR /app
+```
+
+- Container ke andar `/app` directory set hoti hai.
+- Directory exist nahi karti toh Docker ise create kar deta hai.
+- Aage ke commands isi directory mein execute honge.
+
+**3. Package files copy karna**
+
+```dockerfile
+COPY package.json package-lock.json ./
+```
+
+- Host machine se `package.json` aur `package-lock.json` container mein copy hote hain.
+- Destination current working directory `/app` hai.
+
+**4. Dependencies install karna**
+
+```dockerfile
+RUN npm ci
+```
+
+- `package-lock.json` ke according exact dependency versions install hoti hain.
+- `npm ci` reproducible installation ke liye useful hai.
+- Existing lockfile ko normally modify nahi karta.
+- Unnecessary packages automatically identify karke remove nahi karta.
+
+**Stage 1 output:** `/app/node_modules` ready.
+
+---
+
+## Stage 2: Builder
+
+```dockerfile
+FROM node:22-alpine AS builder
+
+WORKDIR /app
+
+COPY --from=deps /app/node_modules ./node_modules
+
+COPY . .
+
+RUN npm run build
+```
+
+### Explanation
+
+**1. New build stage**
+
+```dockerfile
+FROM node:22-alpine AS builder
+```
+
+- Naya stage create hota hai.
+- Is stage ka naam `builder` hai.
+
+**2. Working directory**
+
+```dockerfile
+WORKDIR /app
+```
+
+- Application ka working directory `/app` set hota hai.
+
+**3. Dependencies copy karna**
+
+```dockerfile
+COPY --from=deps /app/node_modules ./node_modules
+```
+
+- `--from=deps` ka matlab previous `deps` stage se files copy karna.
+- Sirf `node_modules` copy honge.
+- Poora previous stage copy nahi hota.
+
+**4. Application source code copy karna**
+
+```dockerfile
+COPY . .
+```
+
+- Current build context ka application code `/app` mein copy hota hai.
+- `.dockerignore` mein listed files copy nahi hoti.
+
+**5. Application build karna**
+
+```dockerfile
+RUN npm run build
+```
+
+- Next.js application ka production build generate hota hai.
+- Build output `.next` directory mein aata hai.
+- `next.config.ts` mein `output: "standalone"` configured hone par `.next/standalone` bhi generate hota hai.
+
+**Stage 2 output:** Production build ready.
+
+---
+
+## Stage 3: Runner
+
+```dockerfile
+FROM node:22-alpine AS runner
+
+WORKDIR /app
+
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV PORT=3000
+ENV HOSTNAME="0.0.0.0"
+
+RUN addgroup -S nextjs && adduser -S nextjs -G nextjs
+
+COPY --from=builder /app/public ./public
+
+COPY --from=builder --chown=nextjs:nextjs /app/.next/standalone ./
+
+COPY --from=builder --chown=nextjs:nextjs /app/.next/static ./.next/static
+
+USER nextjs
+
+EXPOSE 3000
+
+CMD ["node", "server.js"]
+```
+
+### Explanation
+
+**1. Final production stage**
+
+```dockerfile
+FROM node:22-alpine AS runner
+```
+
+- Final stage create hota hai.
+- Isi stage se final Docker image generate hoti hai.
+- Is stage mein build ke saare unnecessary files rakhne ki zarurat nahi hoti.
+
+**2. Working directory**
+
+```dockerfile
+WORKDIR /app
+```
+
+- Production application `/app` directory mein rahegi.
+
+**3. Environment variables**
+
+```dockerfile
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV PORT=3000
+ENV HOSTNAME="0.0.0.0"
+```
+
+- `NODE_ENV=production` — Production environment.
+- `NEXT_TELEMETRY_DISABLED=1` — Next.js telemetry disable.
+- `PORT=3000` — Application ka port.
+- `HOSTNAME=0.0.0.0` — Container ke network interfaces par listen karna.
+
+**4. Linux group aur user create karna**
+
+```dockerfile
+RUN addgroup -S nextjs && adduser -S nextjs -G nextjs
+```
+
+- `nextjs` naam ka group create hota hai.
+- `nextjs` naam ka user create hota hai.
+- User ko `nextjs` group mein add karte hain.
+- Production mein application root user se run nahi karni chahiye.
+
+**5. Public folder copy karna**
+
+```dockerfile
+COPY --from=builder /app/public ./public
+```
+
+- Builder stage se `public` folder copy hota hai.
+- Destination `/app/public` hai.
+
+**6. Standalone files copy karna**
+
+```dockerfile
+COPY --from=builder --chown=nextjs:nextjs /app/.next/standalone ./
+```
+
+- Builder stage se standalone output copy hota hai.
+- Destination `/app` hai.
+- Standalone output mein production server aur required dependencies included hoti hain.
+- `--chown=nextjs:nextjs` copied files ka owner aur group set karta hai.
+
+**7. Static assets copy karna**
+
+```dockerfile
+COPY --from=builder --chown=nextjs:nextjs /app/.next/static ./.next/static
+```
+
+- Next.js ke static assets copy hote hain.
+- Destination `/app/.next/static` hai.
+- Owner aur group `nextjs:nextjs` set hote hain.
+
+**8. Non-root user select karna**
+
+```dockerfile
+USER nextjs
+```
+
+- Ab container ke commands `nextjs` user ke through execute honge.
+- Root user ke through application run nahi hogi.
+- Security improve hoti hai.
+
+**9. Application port declare karna**
+
+```dockerfile
+EXPOSE 3000
+```
+
+- Document karta hai ki application container ke andar port 3000 use karti hai.
+- Ye automatically host par port publish nahi karta.
+
+**10. Application start karna**
+
+```dockerfile
+CMD ["node", "server.js"]
+```
+
+- Container start hone par Node.js `server.js` execute karega.
+- Next.js standalone production server start hoga.
+
+---
+
+## Complete Multi-Stage Flow
+
+```text
+              Dockerfile
+                  |
+                  v
+        STAGE 1: DEPS
+                  |
+           npm ci
+                  |
+           node_modules
+                  |
+                  v
+       STAGE 2: BUILDER
+                  |
+         Copy dependencies
+         Copy application code
+                  |
+           npm run build
+                  |
+         Production build
+                  |
+                  v
+        STAGE 3: RUNNER
+                  |
+       Copy required files
+       Create non-root user
+       Configure port 3000
+                  |
+          node server.js
+                  |
+                  v
+        RUNNING CONTAINER
+```
+
+---
+
+## Important Docker Concepts
+
+| Command | Purpose |
+|---|---|
+| `FROM` | Base image select / new stage |
+| `AS` | Stage ko naam dena |
+| `WORKDIR` | Working directory set karna |
+| `COPY` | Files copy karna |
+| `COPY --from` | Doosre stage se files copy karna |
+| `RUN` | Image build ke time command execute karna |
+| `ENV` | Environment variable set karna |
+| `addgroup` | Linux group create karna |
+| `adduser` | Linux user create karna |
+| `--chown` | File ownership set karna |
+| `USER` | Execution user select karna |
+| `EXPOSE` | Container port document karna |
+| `CMD` | Default startup command define karna |
+
+## Important Interview Questions
+
+**Q1. Multi-stage build kyon use karte hain?**
+
+Final Docker image ko lightweight rakhne, unnecessary build dependencies remove karne aur security improve karne ke liye.
+
+**Q2. `npm ci` aur `npm install` mein difference?**
+
+`npm ci` lockfile ke according clean, reproducible dependency installation karta hai. `npm install` dependencies install karne ke saath lockfile update bhi kar sakta hai.
+
+**Q3. `COPY --from=deps` ka kya meaning hai?**
+
+Kisi doosre build stage se files copy karna.
+
+**Q4. `--chown` ka kya role hai?**
+
+Copied files ka owner aur group set karta hai. Ye `chmod` ki tarah file permissions set nahi karta.
+
+**Q5. `EXPOSE 3000` kya port open karta hai?**
+
+Nahi. Ye sirf documentation hai. Host port publish karne ke liye `docker run -p 3000:3000` use karte hain.
+
+**Q6. `USER nextjs` kyon use karte hain?**
+
+Application ko root ke bajaye non-root user se run karne ke liye.
+
+**Q7. Standalone output ka kya benefit hai?**
+
+Next.js production server aur required dependencies ka minimal output provide karta hai, jisse production image mein unnecessary development dependencies rakhne ki zarurat nahi hoti.
+
+---
+
+## Final Revision
+
+Multi-stage Docker build ka simple concept:
+
+1. Dependencies install karo.
+2. Application code copy karo.
+3. Application build karo.
+4. Final stage mein sirf required production files copy karo.
+5. Non-root user se application run karo.
+
+**Remember:** Build stage aur production runtime stage alag hote hain. Final image mein sirf required files honi chahiye.
+
